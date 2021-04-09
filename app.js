@@ -14,6 +14,7 @@ const mongooose = require('mongoose')
 const dbConfig = require('./dbs/config')
 const index = require('./routes/index')
 const users = require('./routes/users')
+const Class = require('./routes/class')
 
 // error handler
 onerror(app)
@@ -45,6 +46,7 @@ app.use(async (ctx, next) => {
 // routes
 app.use(index.routes(), index.allowedMethods())
 app.use(users.routes(), users.allowedMethods())
+app.use(Class.routes(), Class.allowedMethods())
 mongooose.connect(dbConfig.dbs,{
   useNewUrlParser:true,
   useUnifiedTopology: true
