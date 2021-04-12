@@ -1,5 +1,7 @@
 const router = require('koa-router')()
 const Person = require('../dbs/models/person')
+const Redis = require('koa-redis')
+const Store = new Redis().client
 
 router.prefix('/users')
 
@@ -58,6 +60,11 @@ router.post('/removePerson', async function(ctx, next){
     code:1,
     result
   }
+})
+
+router.get('/fix',async function(ctx, next){
+  const st = await Store.hset('fix','name',Math.random())
+  ctx.body={code:1}
 })
 
 module.exports = router
